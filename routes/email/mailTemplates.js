@@ -21,7 +21,7 @@ Wenn du noch Fragen zur Veranstaltung stehen wir dir unter sebastian.sattler11@w
 <br>
 Um unkompliziert einchecken zu können, könnt ihr das untere Ticket ausgedruckt oder digital mitbringen. Es gilt für alle Personen, die sich über diesen Account angemeldet haben.<br>
 <br>
-<img src="https://kolping.logge.top/api/public/theater/ticket/${data.token}">
+<a href="https://kolping.logge.top/api/public/theater/ticket/${data.token}">EINTRITTSTICKET</a>
 </p>`}),
     unregistrationSuccessful: (data) => ({
         "subject": `Deine Theater Stornierung!`,
