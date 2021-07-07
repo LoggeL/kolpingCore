@@ -1,3 +1,8 @@
+*.sqlite
+recaptcha.json
+mailConfig.json
+ifttt.json
+
 # Logs
 logs
 *.log
