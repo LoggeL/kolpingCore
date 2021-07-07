@@ -5,10 +5,10 @@ module.exports = {
         "subject": `Deine Theater Anmeldung!`,
         "html": `
 <p>
-Hi ${data.name}, <br>
+Hi ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}, <br>
 <br>
 hiermit bestätigen wir dir deine Anmeldung zu unserem diesjährigen Open-Air-Theater. Deine Anmeldung lautet: <br>
-Name: ${data.name} ${data.surname} <br>
+Name: ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")} <br>
 Datum & Uhrzeit: ${fns.format(new Date(data.date), 'dd/MM/yyyy HH:mm')}<br>
 Personenanzahl: ${data.people_count}<br>
 <br>
@@ -25,10 +25,10 @@ Um unkompliziert einchecken zu können, könnt ihr das untere Ticket ausgedruckt
 </p>`}),
     unregistrationSuccessful: (data) => ({
         "subject": `Deine Theater Stornierung!`,
-        "html": `Hi ${data.name},<br>
+        "html": `Hi ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")},<br>
 du hast folgende Anmeldung storniert:<br>
 <br>
-Name: ${data.name} ${data.surname}<br>
+Name: ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")}<br>
 Datum & Uhrzeit: ${fns.format(new Date(data.date), 'dd/MM/yyyy HH:mm')}<br>
 Personenzahl: ${data.people_count}<br>
 <br>
