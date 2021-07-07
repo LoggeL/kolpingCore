@@ -1,7 +1,6 @@
 const fs = require('fs')
 const fns = require('date-fns')
 const QRCode = require('qrcode')
-const { convert } = require('convert-svg-to-png');
 
 const QR_SVG = fs.readFileSync('routes/theater/ticket.svg', 'utf-8')
 
@@ -23,11 +22,7 @@ module.exports = async (app, db) => {
             .replace('{{TOKEN}}', token)
             .replace('{{QR_URL}}', RQ_URL)
 
-        // res.setHeader('content-type', 'image/svg+xml')
-        // return res.status(200).send(QR_SVG_EDIT)
-        const png = await convert(QR_SVG_EDIT, { height: 420, width: 950, background: null });
-
-        res.set('content-type', 'image/png');
-        res.send(png);
+        res.setHeader('content-type', 'image/svg+xml')
+        return res.status(200).send(QR_SVG_EDIT)
     })
 }

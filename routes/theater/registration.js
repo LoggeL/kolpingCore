@@ -62,7 +62,7 @@ module.exports = (app, db) => {
                 people_count: people_count,
             })
 
-            return res.status(200).json({ success: 'Erfolgreich angemeldet' })
+            return res.status(200).json({ success: 'Erfolgreich angemeldet', token })
         } catch (error) {
             console.error(error)
             return res.status(500).json({ error, text: "Fehler beim Anmelden" })
