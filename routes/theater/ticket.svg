@@ -32,7 +32,7 @@
 	<text transform="matrix(1 0 0 1 80 993.9648)" class="st3 st4">CODE {{TOKEN}}</text>
 	<circle class="st6" cx="769.1" cy="1225.3" r="55.7"/>
 	<circle class="st6" cx="769.1" cy="256.7" r="55.7"/>
-	<text transform="matrix(1 0 0 1 868.0938 499.7632)" class="st2 st3 st7">Kolpingtheather Ramsen</text>
+	<text transform="matrix(1 0 0 1 868.0938 499.7632)" class="st2 st3 st7">Kolpingtheater Ramsen</text>
 	<text transform="matrix(1 0 0 1 862.5146 677.9072)"><tspan x="0" y="0" class="st2 st3 st8">Malleus </tspan><tspan x="595.8" y="0" class="st9 st3 st8">Maleficarum</tspan></text>
 	<text transform="matrix(1 0 0 1 868.1362 826.3613)" class="st2 st3 st7">{{DATE}}</text>
 	<path class="st11" d="M1225.5,1149.2H928.7c-15.4,0-27.9-12.5-27.9-27.9V954.5c0-15.4,12.5-27.9,27.9-27.9h296.8   c15.4,0,27.9,12.5,27.9,27.9v166.9C1253.4,1136.8,1240.9,1149.2,1225.5,1149.2z"/>
