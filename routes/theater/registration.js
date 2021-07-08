@@ -3,6 +3,9 @@ const emailEngine = require('../email.js')
 const mailTemplates = require('../email/mailTemplates.js')
 const logger = require('./logger.js')
 
+const { listing_sccret } = require('./secrets.json')
+
+
 module.exports = (app, db) => {
 
     // Registers account
@@ -56,11 +59,13 @@ module.exports = (app, db) => {
                     token
                 })
             )
-
+            
             logger({
                 event: "registered",
                 people_count: people_count,
             })
+
+            console.log('register', token)
 
             return res.status(200).json({ success: 'Erfolgreich angemeldet', token })
         } catch (error) {
@@ -80,6 +85,9 @@ module.exports = (app, db) => {
             const event = await db('event').where('id', event_id).select('free_slots', 'date')
             if (event.length == 0) return res.status(404).json({ error: "Keine Event gefunden" })
 
+            const checkedIn = db('checkin').where('token', token).select('id')
+            if (checkedIn.length > 0) return res.status(404).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
+
             await db('event').where('id', event_id).update({ free_slots: event[0].free_slots + registration[0].people_count })
             await db('registration').where('token', token).del()
 
@@ -98,10 +106,31 @@ module.exports = (app, db) => {
                 people_count: people_count,
             })
 
-            res.status(200).json({ success: "Anmeldung erfolgreich storniert" })
+            console.log('storno', token)
+
+            res.status(200).send("<h1>Anmeldung erfolgreich storniert</h1>")
         } catch (error) {
             console.error(error)
-            res.status(500).json({ error, text: "Fehler beim stornieren" })
+            res.status(500).json({ error, text: "Fehler beim Stornieren" })
         }
+    })
+
+    app.post('/api/public/theater/registration/listing', async (req, res) => {
+        const { secret } = req.body
+        if (secret != listing_sccret) return res.status(403).json({ error: "Unautorisiert!" })
+        const events = await db('event').select('*')
+        let output = []
+        for (let i = 0; events.length; i++) {
+            const event = events[i]
+            const registration = db('registration').where('event_id', event.id).select('name', 'surname', 'people_count')
+
+            output.push({
+                registration,
+                eventname: event.name,
+                eventdate: event.date
+            })
+        }
+
+        res.status(200).json(output)
     })
 }
