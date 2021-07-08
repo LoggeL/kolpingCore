@@ -60,10 +60,10 @@ const knex = require('knex')({
         }])
     }
 
-    const eventsExists = await knex.schema.hasTable('event')
-    console.log('eventsExists', eventsExists)
+    const checkinExists = await knex.schema.hasTable('checkin')
+    console.log('checkinExists', eventsExists)
 
-    if (!eventsExists) {
+    if (!checkinExists) {
         await knex.schema.createTable('checkin', table => {
             table.increments('id').primary()
             table.string('token')
