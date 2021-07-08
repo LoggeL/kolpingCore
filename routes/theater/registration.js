@@ -86,7 +86,6 @@ module.exports = (app, db) => {
             if (event.length == 0) return res.status(404).json({ error: "Keine Event gefunden" })
 
             const checkedIn = await db('checkin').where('token', token).select('id')
-            console.log(checkedIn)
             if (checkedIn.length > 0) return res.status(401).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
 
             await db('event').where('id', event_id).update({ free_slots: event[0].free_slots + registration[0].people_count })
