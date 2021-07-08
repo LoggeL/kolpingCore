@@ -12,7 +12,7 @@ module.exports = async (app, db) => {
         const qr_data = await db('registration').where('token', token).leftJoin('event', 'event.id', 'registration.event_id').select('date', 'people_count')
         if (qr_data.length == 0) return res.status(404).json({ error: "Anmeldung nicht gefunden" })
 
-        const RQ_URL = await QRCode.toDataURL(token, { margin: 0 })
+        const RQ_URL = await QRCode.toDataURL("http://theater.kolping-ramsen.de/ticket.html?" + token, { margin: 0 })
 
         const QR_SVG_EDIT = QR_SVG
             .replace('{{PERSON}}', qr_data[0].people_count == 1 ? 'PERSON' : 'PERSONEN')
