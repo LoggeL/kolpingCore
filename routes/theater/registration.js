@@ -120,9 +120,9 @@ module.exports = (app, db) => {
         if (secret != listing_sccret) return res.status(403).json({ error: "Unautorisiert!" })
         const events = await db('event').select('*')
         let output = []
-        for (let i = 0; events.length; i++) {
+        for (let i = 0; i < events.length; i++) {
             const event = events[i]
-            const registration = db('registration').where('event_id', event.id).select('name', 'surname', 'people_count', 'registered_timestamp')
+            const registration = await db('registration').where('event_id', event.id).select('name', 'surname', 'people_count', 'registered_timestamp')
 
             output.push({
                 registration,
