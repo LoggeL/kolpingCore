@@ -59,7 +59,7 @@ module.exports = (app, db) => {
                     token
                 })
             )
-            
+
             logger({
                 event: "registered",
                 people_count: people_count,
@@ -85,7 +85,7 @@ module.exports = (app, db) => {
             const event = await db('event').where('id', event_id).select('free_slots', 'date')
             if (event.length == 0) return res.status(404).json({ error: "Keine Event gefunden" })
 
-            const checkedIn = db('checkin').where('token', token).select('id')
+            const checkedIn = await db('checkin').where('token', token).select('id')
             if (checkedIn.length > 0) return res.status(404).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
 
             await db('event').where('id', event_id).update({ free_slots: event[0].free_slots + registration[0].people_count })
