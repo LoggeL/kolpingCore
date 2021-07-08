@@ -122,7 +122,7 @@ module.exports = (app, db) => {
         let output = []
         for (let i = 0; events.length; i++) {
             const event = events[i]
-            const registration = db('registration').where('event_id', event.id).select('name', 'surname', 'people_count')
+            const registration = db('registration').where('event_id', event.id).select('name', 'surname', 'people_count', 'registered_timestamp')
 
             output.push({
                 registration,
