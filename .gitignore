@@ -2,6 +2,7 @@
 recaptcha.json
 mailConfig.json
 ifttt.json
+secrets.json
 
 # Logs
 logs
