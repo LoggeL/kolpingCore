@@ -8,7 +8,7 @@ module.exports = (app, db) => {
         if (registration.legth == 0) return res.status(404).json({ error: "Registrierung nicht gefunden!" })
 
         const checkedIn = await db('checkin').where('token', token).select('date')
-        if (checkedIn.length > 0) return res.status(400).json({ error: "Bereits eingecheckt (" + new Date(checkedIn[0].date).toLocaleDateString() + ")" })
+        if (checkedIn.length > 0) return res.status(400).json({ error: "Bereits eingecheckt (" + new Date(checkedIn[0].date).toLocaleString() + ")" })
 
         await db('checkin').insert({ token, date: Date.now() })
         console.log('checkIn', token)
