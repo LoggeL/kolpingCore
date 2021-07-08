@@ -5,7 +5,7 @@ module.exports = {
         "subject": `Deine Theater Anmeldung!`,
         "html": `
 <p>
-Hi ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")}, <br>
+Hallo ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")}, <br>
 <br>
 hiermit bestätigen wir dir deine Anmeldung zu unserem diesjährigen Open-Air-Theater. Deine Anmeldung lautet: <br>
 Name: ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")} <br>
@@ -25,7 +25,8 @@ Um unkompliziert einchecken zu können, könnt ihr das untere Ticket ausgedruckt
 </p>`}),
     unregistrationSuccessful: (data) => ({
         "subject": `Deine Theater Stornierung!`,
-        "html": `Hi ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")},<br>
+        "html": `<p>
+Hallo ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")}, <br>
 du hast folgende Anmeldung storniert:<br>
 <br>
 Name: ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")}<br>
@@ -35,6 +36,7 @@ Personenzahl: ${data.people_count}<br>
 Du möchtest dich für einen anderen Termin anmelden? Klicke dafür <a href="http://theater.kolping-ramsen.de/anmeldung.html">HIER</a>.<br>
 Wenn du noch Fragen hast stehen wir dir unter sebastian.sattler11@web.de zur Verfügung.<br>
 <br>
-Dein Theaterteam`
+Dein Theaterteam
+</p>`
     })
 }

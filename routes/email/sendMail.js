@@ -1,7 +1,5 @@
 module.exports = (receiver, data, transporter) => {
 
-    console.log("SentMail", receiver, data)
-
     data.from = 'poolparty@jupeters.de'
     data.to = receiver
 
