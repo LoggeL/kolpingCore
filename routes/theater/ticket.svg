@@ -3,7 +3,7 @@
 	.st0{fill:url(#SVGID_1_);}
 	.st1{fill:url(#SVGID_2_);}
 	.st2{fill:#FFFFFF;}
-	#.st3{font-family:'Bahnschrift SemiBold';}
+	.st3{font-family:'Bahnschrift SemiBold';}
 	.st4{font-size:60px; font-family:'Bahnschrift Light';}
 	.st5{font-size:86px; font-family:'Bahnschrift SemiBold';}
 	.st6{fill:none;}
@@ -16,6 +16,7 @@
 	.st13{font-size:52px; font-family:'Bahnschrift Light';}
 	.st14{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
 	.st15{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;stroke-dasharray:19.9296,6.9754;}
+	.st16{transform: rotate(15deg); font-size:225px; text-shadow: 2px 2px 5px black; fill: red;}
 </style>
 <g>
 	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="1133.869" y1="118.9402" x2="2102.9463" y2="1300.6212">
@@ -48,4 +49,6 @@
 		</g>
 	</g>
 </g>
+	<rect width="{{EINGECHECKT_WIDTH}}" height="100%" fill="rgba(0,0,0,.5)" />
+	<text transform="matrix(1 0 0 1 862.5146 677.9072)" class="st3 st8 st16"><tspan x="700" y="325">{{EINGECHECKT}}</tspan><tspan x="500" y="625">{{EINGECHECKT_DATE}}</tspan></text>
 </svg>
