@@ -62,7 +62,7 @@ module.exports = (app, db) => {
 
             logger({
                 event: "registered",
-                people_count: people_count,
+                people_count: people_count + ' | ' + eventSlots[0].name,
             })
 
             console.log('register', token)
@@ -103,7 +103,7 @@ module.exports = (app, db) => {
             )
             logger({
                 event: "storno",
-                people_count: people_count,
+                people_count: people_count + ' | ' + event[0].name,
             })
 
             console.log('storno', token)
