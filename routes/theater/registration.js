@@ -29,7 +29,7 @@ module.exports = (app, db) => {
             const registered = await db('registration').where('surname', surname).where('name', name).select('name')
             if (registered.length > 0) return res.status(400).json({ error: 'Bereits registriert' })
 
-            const eventSlots = await db('event').where('id', event_id).select('free_slots', 'date')
+            const eventSlots = await db('event').where('id', event_id).select('free_slots', 'date', 'name')
             if (eventSlots.length == 0) return res.status(400).json({ error: 'Unzulässige Aufführung' })
             if (eventSlots[0].free_slots < people_count) return res.status(400).json({ error: 'Nicht genug freie Plätze vorhanden' })
 
@@ -82,7 +82,7 @@ module.exports = (app, db) => {
             const registration = await db('registration').select('event_id', 'people_count', 'surname', 'name', 'email').where('token', token)
             if (registration.length == 0) return res.status(404).json({ error: "Keine Anmeldung gefunden" })
             const event_id = registration[0].event_id
-            const event = await db('event').where('id', event_id).select('free_slots', 'date')
+            const event = await db('event').where('id', event_id).select('free_slots', 'date', 'name')
             if (event.length == 0) return res.status(404).json({ error: "Keine Event gefunden" })
 
             const checkedIn = await db('checkin').where('token', token).select('id')
@@ -122,7 +122,7 @@ module.exports = (app, db) => {
         let output = []
         for (let i = 0; i < events.length; i++) {
             const event = events[i]
-            const registration = await db('registration').where('event_id', event.id).select('name', 'surname', 'people_count', 'registered_timestamp')
+            const registration = await db('registration').where('event_id', event.id).select('name', 'surname', 'people_count', 'registered_timestamp', 'token')
 
             output.push({
                 registration,
