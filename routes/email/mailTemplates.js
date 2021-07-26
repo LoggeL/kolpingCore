@@ -16,7 +16,6 @@ Wir freuen uns dich bei unseren Aufführungen begrüßen zu dürfen.<br>
 <br>
 Dein Theaterteam<br>
 <br>
-Du möchtest deine Anmeldung stornieren? Klicke dafür <a href="https://kolping.logge.top/api/public/theater/registration/delete/${data.token}">HIER</a>.<br>
 Wenn du noch Fragen zur Veranstaltung stehen wir dir unter sebastian.sattler11@web.de zur Verfügung.<br>
 <br>
 Um unkompliziert einchecken zu können, könnt ihr das untere Ticket ausgedruckt oder digital mitbringen. Es gilt für alle Personen, die sich über diesen Account angemeldet haben.<br>
@@ -36,7 +35,9 @@ Personenzahl: ${data.people_count}<br>
 Du möchtest dich für einen anderen Termin anmelden? Klicke dafür <a href="http://theater.kolping-ramsen.de/anmeldung.html">HIER</a>.<br>
 Wenn du noch Fragen hast stehen wir dir unter sebastian.sattler11@web.de zur Verfügung.<br>
 <br>
-Dein Theaterteam
+Dein Theaterteam<br>
+<br>
+Du möchtest deine Anmeldung stornieren? Klicke dafür auf <a href="https://kolping.logge.top/api/public/theater/registration/delete/${data.token}">STORNIEREN</a>.<br>
 </p>`
     })
 }
