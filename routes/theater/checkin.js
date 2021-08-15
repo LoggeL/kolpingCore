@@ -1,4 +1,5 @@
 const { checkIn_secret } = require('./secrets.json')
+const path = require('path');
 
 module.exports = (app, db) => {
     app.post('/api/public/theater/checkin', async (req, res) => {

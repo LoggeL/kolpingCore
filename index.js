@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const fetch = require('node-fetch')
 const recaptcha = require('./recaptcha.json')
+const path = require('path')
 
 const db = require('knex')({
   client: 'sqlite3',
@@ -15,8 +16,9 @@ const app = express()
 
 // Configure Express
 app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use('/scan', express.static(path.join(__dirname, 'scanWebview')));
 
 // Home Route
 app.get('/', function (req, res) {
