@@ -122,7 +122,7 @@ module.exports = (app, db) => {
         let output = []
         for (let i = 0; i < events.length; i++) {
             const event = events[i]
-            const registration = await db('registration').where('event_id', event.id).select('name', 'surname', 'people_count', 'registered_timestamp', 'token')
+            const registration = await db('registration').leftJoin('checkin', 'checkin.token', 'registration.token').where('event_id', event.id).select('name', 'surname', 'people_count', 'registered_timestamp', 'token', 'checkin.id as checked_in')
 
             output.push({
                 registration,
