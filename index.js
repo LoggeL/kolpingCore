@@ -52,5 +52,5 @@ app.get('/api/public/test', (req, res) => {
 // Other routes
 require('./routes/theater')(app, db)
 
-// Launch our app on port 3000
-app.listen('3000', () => console.log('Server listening on port 3000'))
+// Launch our app on port 8080
+app.listen('8080', () => console.log('Server listening on port 8080'))

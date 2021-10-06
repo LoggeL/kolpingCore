@@ -19,7 +19,7 @@ module.exports = async (app, db) => {
 
         const QR_SVG_EDIT = (checkin_data[0] ? QR_SVG_checkin : QR_SVG)
             .replace('{{PERSON}}', qr_data[0].people_count == 1 ? 'PERSON' : 'PERSONEN')
-            .replace('{{PERSON_X}}', qr_data[0].people_count == 1 ? '970' : '940')
+            .replace('{{PERSON_X}}', qr_data[0].people_count == 1 ? '-20' : '-50')
             .replace('{{PEOPLE_COUNT}}', qr_data[0].people_count)
             .replace('{{DATE}}', fns.format(new Date(qr_data[0].date), 'dd/MM/yyyy | HH:mm'))
             .replace('{{TOKEN}}', token)

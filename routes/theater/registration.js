@@ -3,19 +3,19 @@ const emailEngine = require('../email.js')
 const mailTemplates = require('../email/mailTemplates.js')
 const logger = require('./logger.js')
 
-const { listing_sccret } = require('./secrets.json')
-
+const { listing_secret } = require('./secrets.json')
+const MAX_PEOPLE_COUNT = 8
 
 module.exports = (app, db) => {
 
     // Registers account
     app.post('/api/protected/theater/registration', async (req, res) => {
-        const { name, surname, email, telephone, people_count, event_id, address } = req.body
+        const { name, surname, email, telephone, people_count, event_id, address, vaccinated } = req.body
 
         console.log(req.body)
 
         if (!people_count || !Number(people_count)) return res.status(400).json({ error: "Personenanzahl nicht angeben" })
-        if (people_count < 1 || people_count > 8) return res(403).json({ error: "Unzulässige Personenanzahl" })
+        if (people_count < 1 || people_count > MAX_PEOPLE_COUNT) return res(403).json({ error: "Unzulässige Personenanzahl" })
 
         if (!name) return res.status(400).json({ error: "Vorname nicht angeben" })
         if (!surname) return res.status(400).json({ error: "Nachname nicht angeben" })
@@ -29,9 +29,10 @@ module.exports = (app, db) => {
             const registered = await db('registration').where('surname', surname).where('name', name).select('name')
             if (registered.length > 0) return res.status(400).json({ error: 'Bereits registriert' })
 
-            const eventSlots = await db('event').where('id', event_id).select('free_slots', 'date', 'name')
-            if (eventSlots.length == 0) return res.status(400).json({ error: 'Unzulässige Aufführung' })
-            if (eventSlots[0].free_slots < people_count) return res.status(400).json({ error: 'Nicht genug freie Plätze vorhanden' })
+            const eventSlots = await db('event').where('id', event_id).select('free_slots', 'date', 'name', 'free_unvaccinated').first()
+            if (!eventSlots) return res.status(400).json({ error: 'Unzulässige Aufführung' })
+            if (eventSlots.free_slots < people_count) return res.status(400).json({ error: 'Nicht genug freie Plätze vorhanden' })
+            if (eventSlots.free_unvaccinated < people_count && vaccinated == "false") return res.status(400).json({ error: 'Nicht genug Plätze für Ungeimpfte vorhanden. Lass dich impfen ♥' })
 
             // Secret
             const token = crypto.randomBytes(8).toString("hex")
@@ -44,25 +45,30 @@ module.exports = (app, db) => {
                 people_count,
                 address,
                 event_id,
+                vaccinated,
                 token,
                 registered_timestamp: Date.now()
             })
 
-            await db('event').where('id', event_id).update({ free_slots: eventSlots[0].free_slots - people_count })
+            await db('event').where('id', event_id).update({ free_slots: eventSlots.free_slots - people_count })
+
+            if (vaccinated == "false") {
+                await db('event').where('id', event_id).update({ free_unvaccinated: eventSlots.free_unvaccinated - people_count })
+            }
 
             emailEngine.sendMail(email,
                 mailTemplates.registrationSuccessful({
                     name,
                     surname,
                     people_count,
-                    date: eventSlots[0].date,
+                    date: eventSlots.date,
                     token
                 })
             )
 
             logger({
                 event: "registered",
-                people_count: people_count + ' | ' + eventSlots[0].name,
+                people_count: people_count + ' | ' + eventSlots.name + ' | Imfpung: ' + vaccinated,
             })
 
             console.log('register', token)
@@ -117,7 +123,7 @@ module.exports = (app, db) => {
 
     app.post('/api/public/theater/registration/listing', async (req, res) => {
         const { secret } = req.body
-        if (secret != listing_sccret) return res.status(403).json({ error: "Unautorisiert!" })
+        if (secret != listing_secret) return res.status(403).json({ error: "Unautorisiert!" })
         const events = await db('event').select('*')
         let output = []
         for (let i = 0; i < events.length; i++) {

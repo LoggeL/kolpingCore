@@ -20,6 +20,7 @@ const knex = require('knex')({
             table.string('telephone')
             table.int('people_count')
             table.int('event_id')
+            table.bool('vaccinated')
             table.string('token')
             table.timestamp('registered_timestamp')
         })
@@ -34,29 +35,16 @@ const knex = require('knex')({
             table.string('name')
             table.date('date')
             table.int('max_slots')
+            table.int('free_unvaccinated')
             table.int('free_slots')
         })
 
         await knex('event').insert([{
-            name: "Premiere Malleus Maleficarum",
-            date: 1630087200000,
-            max_slots: 120,
-            free_slots: 120
-        }, {
-            name: "2. Aufführung Malleus Maleficarum",
-            date: 1630256400000,
-            max_slots: 120,
-            free_slots: 120
-        }, {
-            name: "3. Aufführung Malleus Maleficarum",
-            date: 1630692000000,
-            max_slots: 120,
-            free_slots: 120
-        }, {
-            name: "4. Aufführung Malleus Maleficarum",
-            date: 1630861200000,
-            max_slots: 120,
-            free_slots: 120
+            name: "Kolping-Oktoberfest",
+            date: 1635062400000,
+            max_slots: 150,
+            free_slots: 150,
+            free_unvaccinated: 25
         }])
     }
 
