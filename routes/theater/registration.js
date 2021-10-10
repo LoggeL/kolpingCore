@@ -92,7 +92,7 @@ module.exports = (app, db) => {
             if (!event) return res.status(404).json({ error: "Keine Event gefunden" })
 
             const checkedIn = await db('checkin').where('token', token).select('id').first()
-            if (!checkedIn) return res.status(401).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
+            if (checkedIn) return res.status(401).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
 
             const { name, surname, people_count, email, vaccinated } = registration
 
