@@ -44,7 +44,7 @@ const knex = require('knex')({
             date: 1635062400000,
             max_slots: 150,
             free_slots: 150,
-            free_unvaccinated: 25
+            free_unvaccinated: 20
         }])
     }
 
