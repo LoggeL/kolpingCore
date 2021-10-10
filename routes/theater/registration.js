@@ -113,7 +113,7 @@ module.exports = (app, db) => {
             )
             logger({
                 event: "storno",
-                people_count: people_count + ' | ' + event[0].name,
+                people_count: people_count + ' | ' + event.name,
             })
 
             console.log('storno', token)
