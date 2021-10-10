@@ -68,7 +68,7 @@ module.exports = (app, db) => {
 
             logger({
                 event: "registered",
-                people_count: people_count + ' | ' + eventSlots.name + ' | Imfpung: ' + vaccinated,
+                people_count: people_count + ' | ' + eventSlots.name + ' | Impfung: ' + vaccinated,
             })
 
             console.log('register', token)
