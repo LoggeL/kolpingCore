@@ -45,7 +45,7 @@ module.exports = (app, db) => {
                 people_count,
                 address,
                 event_id,
-                vaccinated: vaccinated == "true" ? true : false,
+                vaccinated: vaccinated == "true" ? 1 : 0,
                 token,
                 registered_timestamp: Date.now()
             })
@@ -101,7 +101,7 @@ module.exports = (app, db) => {
             console.log('Storno', registration)
 
             await db('event').where('id', event_id).update({ free_slots: event.free_slots + registration.people_count })
-            if (vaccinated == "false") await db('event').where('id', event_id).update({ free_unvaccinated: event.free_unvaccinated + registration.people_count })
+            if (!vaccinated) await db('event').where('id', event_id).update({ free_unvaccinated: event.free_unvaccinated + registration.people_count })
             await db('registration').where('token', token).del()
 
 
