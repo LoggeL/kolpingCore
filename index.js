@@ -5,6 +5,8 @@ const fetch = require('node-fetch')
 const recaptcha = require('./recaptcha.json')
 const path = require('path')
 
+const { port } = require('./config.json')
+
 const db = require('knex')({
   client: 'sqlite3',
   connection: {
@@ -52,5 +54,5 @@ app.get('/api/public/test', (req, res) => {
 // Other routes
 require('./routes/theater')(app, db)
 
-// Launch our app on port 8080
-app.listen('8080', () => console.log('Server listening on port 8080'))
+// Launch our app 
+app.listen(port, () => console.log('Server listening on port ' + port))
