@@ -90,7 +90,7 @@ module.exports = (app, db) => {
             const registration = await db('registration').select('event_id', 'people_count', 'surname', 'name', 'email', 'vaccinated').where('token', token).first()
             if (!registration) return res.status(404).json({ error: "Keine Anmeldung gefunden" })
             const event_id = registration.event_id
-            const event = await db('event').where('id', event_id).select('free_slots', 'date', 'name').first()
+            const event = await db('event').where('id', event_id).select('free_slots', 'date', 'name', 'free_unvaccinated').first()
             if (!event) return res.status(404).json({ error: "Keine Event gefunden" })
 
             const checkedIn = await db('checkin').where('token', token).select('id').first()
