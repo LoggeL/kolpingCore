@@ -2,21 +2,21 @@ const fns = require('date-fns')
 
 module.exports = {
     registrationSuccessful: (data) => ({
-        "subject": `Deine Theater Anmeldung!`,
+        "subject": `Deine Wiesen Anmeldung!`,
         "html": `
 <p>
 Hallo ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")}, <br>
 <br>
-hiermit bestätigen wir dir deine Anmeldung zu unserem diesjährigen Open-Air-Theater. Deine Anmeldung lautet: <br>
+hiermit bestätigen wir dir deine Anmeldung zu Wiesn-Fest. Deine Anmeldung lautet: <br>
 Name: ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.replace(/</g, "&lt;").replace(/>/g, "&gt;")} <br>
 Datum & Uhrzeit: ${fns.format(new Date(data.date), 'dd/MM/yyyy HH:mm')}<br>
 Personenanzahl: ${data.people_count}<br>
 <br>
-Wir freuen uns dich bei unseren Aufführungen begrüßen zu dürfen.<br>
+Bitte bringt die Eintrittskarte, euren 2G+ Nachweis, als auch euren Personalausweis mit.<br>
 <br>
-Dein Theaterteam<br>
+Die Kolpingjugend<br>
 <br>
-Wenn du noch Fragen zur Veranstaltung stehen wir dir unter sebastian.sattler11@web.de zur Verfügung.<br>
+Wenn du noch Fragen zur Veranstaltung stehen wir dir unter sebastian.sattler11@web.de und hyper.xjo@gmail.com zur Verfügung.<br>
 <br>
 Um unkompliziert einchecken zu können, könnt ihr das untere Ticket ausgedruckt oder digital mitbringen. Es gilt für alle Personen, die sich über diesen Account angemeldet haben.<br>
 <br>
@@ -35,7 +35,7 @@ Datum & Uhrzeit: ${fns.format(new Date(data.date), 'dd/MM/yyyy HH:mm')}<br>
 Personenzahl: ${data.people_count}<br>
 <br>
 Du möchtest dich für einen anderen Termin anmelden? Klicke dafür <a href="http://theater.kolping-ramsen.de/anmeldung.html">HIER</a>.<br>
-Wenn du noch Fragen hast stehen wir dir unter sebastian.sattler11@web.de zur Verfügung.<br>
+Wenn du noch Fragen zur Veranstaltung stehen wir dir unter sebastian.sattler11@web.de und hyper.xjo@gmail.com zur Verfügung.<br>
 <br>
 Dein Theaterteam
 </p>`
