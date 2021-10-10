@@ -85,26 +85,30 @@ module.exports = (app, db) => {
         const token = req.params.token
         try {
             if (!token) return res.status(400).json({ error: "Token fehlt" })
-            const registration = await db('registration').select('event_id', 'people_count', 'surname', 'name', 'email').where('token', token)
-            if (registration.length == 0) return res.status(404).json({ error: "Keine Anmeldung gefunden" })
-            const event_id = registration[0].event_id
-            const event = await db('event').where('id', event_id).select('free_slots', 'date', 'name')
-            if (event.length == 0) return res.status(404).json({ error: "Keine Event gefunden" })
+            const registration = await db('registration').select('event_id', 'people_count', 'surname', 'name', 'email', 'vaccinated').where('token', token).first()
+            if (!registration) return res.status(404).json({ error: "Keine Anmeldung gefunden" })
+            const event_id = registration.event_id
+            const event = await db('event').where('id', event_id).select('free_slots', 'date', 'name').first()
+            if (!event) return res.status(404).json({ error: "Keine Event gefunden" })
 
-            const checkedIn = await db('checkin').where('token', token).select('id')
-            if (checkedIn.length > 0) return res.status(401).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
+            const checkedIn = await db('checkin').where('token', token).select('id').first()
+            if (!checkedIn) return res.status(401).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
 
-            await db('event').where('id', event_id).update({ free_slots: event[0].free_slots + registration[0].people_count })
+            const { name, surname, people_count, email, vaccinated } = registration
+
+            await db('event').where('id', event_id).update({ free_slots: event.free_slots + registration.people_count })
+            if (!vaccinated) await db('event').where('id', event_id).update({ free_unvaccinated: event.free_unvaccinated + registration.people_count })
             await db('registration').where('token', token).del()
 
-            const { name, surname, people_count, email } = registration[0]
+
+
 
             emailEngine.sendMail(email,
                 mailTemplates.unregistrationSuccessful({
                     name,
                     surname,
                     people_count,
-                    date: event[0].date,
+                    date: event.date,
                 })
             )
             logger({
