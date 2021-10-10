@@ -66,6 +66,8 @@ module.exports = (app, db) => {
                 })
             )
 
+            console.log('Registered', { name, surname, email, telephone, people_count, event_id, address, vaccinated })
+
             logger({
                 event: "registered",
                 people_count: people_count + ' | ' + eventSlots.name + ' | Impfung: ' + vaccinated,
@@ -95,6 +97,8 @@ module.exports = (app, db) => {
             if (checkedIn) return res.status(401).json({ error: "Bereits eingecheckt! Stornierung nicht möglich!" })
 
             const { name, surname, people_count, email, vaccinated } = registration
+
+            console.log('Storno', registration)
 
             await db('event').where('id', event_id).update({ free_slots: event.free_slots + registration.people_count })
             if (!vaccinated) await db('event').where('id', event_id).update({ free_unvaccinated: event.free_unvaccinated + registration.people_count })
