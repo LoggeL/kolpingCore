@@ -106,7 +106,6 @@ module.exports = (app, db) => {
 
 
 
-
             emailEngine.sendMail(email,
                 mailTemplates.unregistrationSuccessful({
                     name,

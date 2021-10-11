@@ -12,9 +12,11 @@ Name: ${data.name.replace(/</g, "&lt;").replace(/>/g, "&gt;")} ${data.surname.re
 Datum & Uhrzeit: ${fns.format(new Date(data.date), 'dd/MM/yyyy HH:mm')}<br>
 Personenanzahl: ${data.people_count}<br>
 <br>
-Bitte bringt die Eintrittskarte, euren 2G+ Nachweis, als auch euren Personalausweis mit.<br>
+Bitte bringt die Eintrittskarte, euren 2G+ Nachweis (Impf-/Genesen-/Testnachweis), als auch euren Personalausweis mit.<br>
 <br>
 Die Kolpingjugend<br>
+<br>
+P.S. Wer passend gekleidet in Tracht kommt, bekommt ein Hütchen umsonst.
 <br>
 Wenn du noch Fragen zur Veranstaltung stehen wir dir unter sebastian.sattler11@web.de und hyper.xjo@gmail.com zur Verfügung.<br>
 <br>
